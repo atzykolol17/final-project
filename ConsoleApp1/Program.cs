@@ -24,7 +24,8 @@ Console.WriteLine("4. search product by name");
 Console.WriteLine("5. delete product");
 Console.WriteLine("6. sell product");
 
-List<supermarket> supermarketList = new();
+List<Product> productList = new();
+
 
 while (true)
 {
@@ -32,11 +33,9 @@ while (true)
     int option = int.Parse(Console.ReadLine());
 
     switch (option)
-
-
-
+    { 
     case 1:
-        foreach (var com in product)
+        foreach (var com in productList)
         {
             Console.WriteLine("--------------add product -------------");
             Console.WriteLine($"Name: {com.Name}");
@@ -47,11 +46,19 @@ while (true)
 
 
     case 2:
-        string supermarketJson = JsonSerializer.Serialize(supermarketList);
+        string supermarketJson = JsonSerializer.Serialize(productList);
         File.WriteAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/supermarket.json", supermarketJson);
         break;
 
     case 3:
         string csupermarketJsonRead = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/supermarket.json");
-        supermarketList = JsonSerializer.Deserialize<List<supermarket>>(supermarketJsonRead);
+        productList = JsonSerializer.Deserialize<List<Product>>(csupermarketJsonRead);
         break;
+    }
+}
+
+
+public class Product
+{
+    public string name;
+}
